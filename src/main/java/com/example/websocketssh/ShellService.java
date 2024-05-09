@@ -41,7 +41,7 @@ public class ShellService {
       var channel = createChannel(stands.get(standId).address());
 
       var outStream = 
-        new HistoryableOutputStreamDecorator(new WebSocketTimerFlushOutputStream(socketSession));
+        new HistoryableOutputStreamDecorator(new WebSocketDirectOutputStream(socketSession));
       channel.setOutputStream(outStream);
       
       var inStreamWriter = new InputStreamWriter();
