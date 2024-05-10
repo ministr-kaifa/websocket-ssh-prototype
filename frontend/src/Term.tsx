@@ -44,7 +44,7 @@ const Term: FC = () => {
 
     if (terminalRef.current) {
       (async () => {
-        await terminal.open(terminalRef.current);
+        await terminal.open(terminalRef.current as HTMLDivElement);
         await fitAddon.fit();
       })();
     }
