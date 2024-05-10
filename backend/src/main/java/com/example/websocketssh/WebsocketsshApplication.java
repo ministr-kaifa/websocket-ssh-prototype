@@ -13,9 +13,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @SpringBootApplication
 public class WebsocketsshApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WebsocketsshApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(WebsocketsshApplication.class, args);
+  }
   
   @Bean
   CorsConfigurationSource corsConfigurationSource() {

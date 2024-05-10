@@ -74,23 +74,3 @@ public class InputStreamWriter {
     };
   }
 }
-
-
-  // public InputStream getInputStream() {
-  //   return new InputStream() {
-
-  //     String echo = "echo hello\n";
-  //     int cursor = 0;
-
-  //     @Override
-  //     public int read() throws IOException {
-  //       cursor++;
-  //       return echo.charAt((cursor - 1) % echo.length());
-  //     }
-
-  //     @Override
-  //     public int available() throws IOException {
-  //       return 1;
-  //     }
-  //   };
-  // }
