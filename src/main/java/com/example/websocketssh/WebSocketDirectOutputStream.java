@@ -24,5 +24,10 @@ public class WebSocketDirectOutputStream extends OutputStream {
   public void write(byte[] b, int off, int len) throws IOException {
     session.sendMessage(new TextMessage(Arrays.copyOfRange(b, off, len)));
   }
+
+  @Override
+  public void write(byte[] b) throws IOException {
+    session.sendMessage(new TextMessage(b));
+  }
   
 }

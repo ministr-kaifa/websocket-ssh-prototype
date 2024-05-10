@@ -24,6 +24,7 @@ public class ShellWebSocketController extends TextWebSocketHandler {
 
     LOGGER.info("recieved message on stand[" + standId + "].shell[" + shellId + "], content = " + message.getPayload());
     shellService.sendToShell(standId, shellId, message.getPayload());
+    LOGGER.info("message sent");
 	}
 
   @Override
@@ -33,7 +34,6 @@ public class ShellWebSocketController extends TextWebSocketHandler {
 
     LOGGER.info("connection " + session.getId() + " established");
     shellService.attachSocketSessionToShell(standId, shellId, session);
-    super.afterConnectionEstablished(session);
   }
 
 }

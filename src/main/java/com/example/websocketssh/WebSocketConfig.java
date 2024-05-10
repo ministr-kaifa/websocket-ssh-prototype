@@ -21,7 +21,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		registry.addHandler(handler, "/api/stands/{standId}/shells/{shellId}")
-      .addInterceptors(interceptors);
+      .addInterceptors(interceptors).setAllowedOrigins("*");
 	}
 
 }
