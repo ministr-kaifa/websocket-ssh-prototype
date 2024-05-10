@@ -1,7 +1,7 @@
-FROM node:20
+FROM node:18
 WORKDIR /app
 COPY package.json ./
 RUN yarn 
 COPY . .
-EXPOSE 5173
+EXPOSE 3000
 CMD ["yarn", "dev"]
