@@ -1,13 +1,15 @@
 package com.example.websocketssh;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.WebSocketSession;
 
-import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelShell;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
@@ -39,17 +41,17 @@ public class ShellService {
   public void attachSocketSessionToShell(long standId, long shellId, WebSocketSession socketSession) {
     try {
       var channel = createChannel(stands.get(standId).address());
-
+      
       var outStream = 
-        new HistoryableOutputStreamDecorator(new WebSocketDirectOutputStream(socketSession));
+        new WebSocketDirectOutputStream(socketSession);
       channel.setOutputStream(outStream);
       
-      var inStreamWriter = new InputStreamWriter();
-      channel.setInputStream(inStreamWriter.getInputStream());
+      var writeableInputStream = new WriteableInputStream();
+      channel.setInputStream(writeableInputStream);
 
       var shell = stands.get(standId).shells().get(shellId);
       shell.setChannel(channel);
-      shell.setInStreamWriter(inStreamWriter);
+      shell.setWriteableInputStream(writeableInputStream);
       shell.setOutStream(outStream);
 
       channel.connect(); 
@@ -59,19 +61,26 @@ public class ShellService {
   }
 
   public void sendToShell(long standId, long shellId, String data) {
-    stands.get(standId).shells().get(shellId).getInStreamWriter().write(data);
+    var primiteiveBinaryData = data.getBytes(StandardCharsets.UTF_8);
+    var binaryData = new Byte[primiteiveBinaryData.length];
+    Arrays.setAll(binaryData, i -> primiteiveBinaryData[i]);
+    stands.get(standId).shells().get(shellId).getWriteableInputStream().write(binaryData);
+  }
+
+  public void changeTerminalSize(long standId, long shellId, int rows, int columns) {
+    stands.get(standId).shells().get(shellId).getChannel().setPtySize(columns, rows, 1000, 1000);
   }
 
   public void createShell(long standId) {
     stands.get(standId).shells().put(stands.get(standId).shells().size() + 1L, new Shell());
   }
 
-  private Channel createChannel(String address) {
+  private ChannelShell createChannel(String address) {
     try {
       Session session = jsch.getSession(USER, address);
       session.setConfig("StrictHostKeyChecking", "no");
       session.connect();
-      return session.openChannel("shell");
+      return (ChannelShell)session.openChannel("shell");
     } catch (JSchException e) {
       throw new RuntimeException(e);
     }

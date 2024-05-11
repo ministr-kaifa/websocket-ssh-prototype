@@ -1,8 +1,8 @@
-import { FC, useEffect, useRef } from 'react';
-import { Terminal } from '@xterm/xterm';
-import { FitAddon } from '@xterm/addon-fit';
-import '@xterm/xterm/css/xterm.css';
 import { AttachAddon } from '@xterm/addon-attach';
+import { FitAddon } from '@xterm/addon-fit';
+import { Terminal } from '@xterm/xterm';
+import '@xterm/xterm/css/xterm.css';
+import { FC, useEffect, useRef } from 'react';
 
 const theme = {
   foreground: '#ebeef5',
@@ -56,7 +56,7 @@ const Term: FC = () => {
   }, []);
 
   return (
-    <div style={{ height: '250px', width: '600px', margin: '50px' }}>
+    <div style={{ height: '720px', width: '1080px', margin: '50px' }}>
       <div style={{ width: '100%', height: '100%' }} ref={terminalRef} />
     </div>
   );

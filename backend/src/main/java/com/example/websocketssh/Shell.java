@@ -1,38 +1,40 @@
 package com.example.websocketssh;
 
-import com.jcraft.jsch.Channel;
+import java.io.OutputStream;
+
+import com.jcraft.jsch.ChannelShell;
 
 public class Shell {
-  private HistoryableOutputStreamDecorator outStream;
-  private InputStreamWriter inStreamWriter;
-  private Channel channel;
+  private OutputStream outStream;
+  private WriteableInputStream writeableInputStream;
+  private ChannelShell channel;
   private String webSocketSessionId;
 
   public void setWebSocketSessionId(String webSocketSessionId) {
     this.webSocketSessionId = webSocketSessionId;
   }
 
-  public void setOutStream(HistoryableOutputStreamDecorator outStream) {
+  public void setOutStream(OutputStream outStream) {
     this.outStream = outStream;
   }
 
-  public void setInStreamWriter(InputStreamWriter inStreamWriter) {
-    this.inStreamWriter = inStreamWriter;
+  public void setWriteableInputStream(WriteableInputStream inStreamWriter) {
+    this.writeableInputStream = inStreamWriter;
   }
   
-  public void setChannel(Channel channel) {
+  public void setChannel(ChannelShell channel) {
     this.channel = channel;
   }
 
-  public HistoryableOutputStreamDecorator getOutStream() {
+  public OutputStream getOutStream() {
     return outStream;
   }
 
-  public InputStreamWriter getInStreamWriter() {
-    return inStreamWriter;
+  public WriteableInputStream getWriteableInputStream() {
+    return writeableInputStream;
   }
 
-  public Channel getChannel() {
+  public ChannelShell getChannel() {
     return channel;
   }
 

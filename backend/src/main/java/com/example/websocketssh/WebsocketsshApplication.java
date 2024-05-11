@@ -1,6 +1,5 @@
 package com.example.websocketssh;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.boot.SpringApplication;
@@ -23,7 +22,7 @@ public class WebsocketsshApplication {
 
     configuration.setAllowedOrigins(List.of("*"));
     configuration.setAllowedHeaders(List.of("*"));
-    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS"));
+    configuration.setAllowedMethods(List.of("GET", "POST", "PATCH", "DELETE", "OPTIONS"));
     configuration.setAllowCredentials(true);
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
