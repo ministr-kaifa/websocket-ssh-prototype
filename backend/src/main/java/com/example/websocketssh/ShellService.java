@@ -67,7 +67,7 @@ public class ShellService {
     stands.get(standId).shells().get(shellId).getWriteableInputStream().write(binaryData);
   }
 
-  public void changeTerminalSize(long standId, long shellId, int rows, int columns) {
+  public void resizeShellWindow(long standId, long shellId, int rows, int columns) {
     stands.get(standId).shells().get(shellId).getChannel().setPtySize(columns, rows, 1000, 1000);
   }
 
