@@ -1,20 +1,27 @@
 package com.example.websocketssh;
 
-import java.io.OutputStream;
-
 import com.jcraft.jsch.ChannelShell;
 
 public class Shell {
-  private OutputStream outStream;
+  private WebSocketDirectOutputStream outStream;
   private WriteableInputStream writeableInputStream;
   private ChannelShell channel;
   private String webSocketSessionId;
+  private boolean isLaunched = false;
+
+  public boolean isLaunched() {
+    return isLaunched;
+  }
+
+  public void launch() {
+    isLaunched = true;
+  }
 
   public void setWebSocketSessionId(String webSocketSessionId) {
     this.webSocketSessionId = webSocketSessionId;
   }
 
-  public void setOutStream(OutputStream outStream) {
+  public void setOutStream(WebSocketDirectOutputStream outStream) {
     this.outStream = outStream;
   }
 
@@ -26,7 +33,7 @@ public class Shell {
     this.channel = channel;
   }
 
-  public OutputStream getOutStream() {
+  public WebSocketDirectOutputStream getOutStream() {
     return outStream;
   }
 
